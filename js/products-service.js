@@ -5,7 +5,10 @@ class ProductsService {
     }
     async getProducts() {
         if (!this.products) {
-            this.products = await (await fetch('products.json')).json();
+            const responce = await fetch('products.json');
+            const data = await responce.json();
+            data.sort((a, b) => b.price - a.price);
+            this.products = data;
         }
         return this.products;
     }
